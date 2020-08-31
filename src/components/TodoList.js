@@ -12,34 +12,40 @@ class TodoList extends React.Component {
     this.updateStatus = this.updateStatus.bind(this);
   }
 
+  getNewStatus(isDone, isInProgress) {
+    if (isDone) {
+      return { isDone: false, isInProgress: false };
+    }
+    if (isInProgress) {
+      return { isDone: true, isInProgress: false };
+    }
+    return { isDone: false, isInProgress: true };
+  }
+
+  getUpdatedTodo({ task, isDone, isInProgress }) {
+    return Object.assign({ task }, this.getNewStatus(isDone, isInProgress));
+  }
+
   updateStatus(todoId) {
-    this.setState((state) => {
-      let todoList = state.todoList.slice();
-      const todo = state.todoList[todoId];
-      const updatedTodo = {task: todo.task, isDone: false, isInProgress: true};
-      todoList[todoId] = updatedTodo;
-
-      if (todo.isDone) {
-        Object.assign(updatedTodo, {isDone: false, isInProgress:false});
-      }
-
-      if (todo.isInProgress) {
-        Object.assign(updatedTodo, { isDone: true, isInProgress:false });
-      }
-
-      return { todoList };
-    })
+    this.setState(({ todoList }) => {
+      let newTodoList = todoList.map((todo) => ({ ...todo }));
+      const todo = newTodoList[todoId];
+      newTodoList[todoId] = this.getUpdatedTodo(todo);
+      return { todoList: newTodoList };
+    });
   }
 
   handleSubmit(task) {
     this.setState((state) => ({
-      todoList: state.todoList.concat([{ task, isDone: false , isInProgress: false}]),
+      todoList: state.todoList.concat([
+        { task, isDone: false, isInProgress: false },
+      ]),
     }));
   }
 
   render() {
     const TodoItems = this.state.todoList.map((todo, id) => (
-      <TodoItem key={id} id={id} todo={todo} updateStatus={this.updateStatus}/>
+      <TodoItem key={id} id={id} todo={todo} updateStatus={this.updateStatus} />
     ));
 
     return (
