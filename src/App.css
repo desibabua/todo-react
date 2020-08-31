@@ -1,21 +1,24 @@
-.doneTask,.unDoneTask{
+.task {
   display: flex;
-  margin:10px;
+  margin: 10px;
 }
 
 .status {
   width: 10px;
   margin: 0 10px;
 }
-
-.doneTask .task {
+.done {
   text-decoration: line-through;
 }
 
-.doneTask .status {
+.done .status {
   background-color: mediumseagreen;
 }
 
-.unDoneTask .status {
+.inProgress .status {
+  background-color: orange;
+}
+
+.unDone .status {
   background-color: lightblue;
 }

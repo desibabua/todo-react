@@ -16,15 +16,24 @@ class TodoList extends React.Component {
     this.setState((state) => {
       let todoList = state.todoList.slice();
       const todo = state.todoList[todoId];
-      const updatedTodo = {task: todo.task, isDone: !todo.isDone};
+      const updatedTodo = {task: todo.task, isDone: false, isInProgress: true};
       todoList[todoId] = updatedTodo;
+
+      if (todo.isDone) {
+        Object.assign(updatedTodo, {isDone: false, isInProgress:false});
+      }
+
+      if (todo.isInProgress) {
+        Object.assign(updatedTodo, { isDone: true, isInProgress:false });
+      }
+
       return { todoList };
     })
   }
 
   handleSubmit(task) {
     this.setState((state) => ({
-      todoList: state.todoList.concat([{ task, isDone: false }]),
+      todoList: state.todoList.concat([{ task, isDone: false , isInProgress: false}]),
     }));
   }
 
@@ -32,6 +41,7 @@ class TodoList extends React.Component {
     const TodoItems = this.state.todoList.map((todo, id) => (
       <TodoItem key={id} id={id} todo={todo} updateStatus={this.updateStatus}/>
     ));
+
     return (
       <div>
         <h1>Todo</h1>

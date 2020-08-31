@@ -12,6 +12,7 @@ class AddItem extends React.Component {
     const value = e.target.value;
     this.setState(() => ({ value }));
   }
+  
   handleSubmit(e) {
     e.preventDefault();
     const value = this.state.value;
