@@ -15,7 +15,7 @@
   background-color: mediumseagreen;
 }
 
-.inProgress .status {
+.doing .status {
   background-color: orange;
 }
 

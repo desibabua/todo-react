@@ -1,11 +1,9 @@
 import React from 'react';
 
-const TodoItem = function ({ todo, id, updateStatus }) {
-  const { task, isDone, isInProgress } = todo;
-  const className =
-    'task ' + (isDone ? 'done' : isInProgress ? 'inProgress' : 'unDone');
+const TodoItem = function ({ todo, id, onClick }) {
+  const { task, status } = todo;
   return (
-    <div id={id} className={className} onClick={() => updateStatus(id)}>
+    <div id={id} className={'task ' + status} onClick={() => onClick(id)}>
       <div className="status"></div>
       <div>{task}</div>
     </div>

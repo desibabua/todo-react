@@ -1,6 +1,7 @@
 import React from 'react';
 import TodoItem from './TodoItem';
 import AddItem from './AddItem';
+import { getDefaultStatus, getNextStatus } from './statuses';
 
 class TodoList extends React.Component {
   constructor(props) {
@@ -12,40 +13,24 @@ class TodoList extends React.Component {
     this.updateStatus = this.updateStatus.bind(this);
   }
 
-  getNewStatus(isDone, isInProgress) {
-    if (isDone) {
-      return { isDone: false, isInProgress: false };
-    }
-    if (isInProgress) {
-      return { isDone: true, isInProgress: false };
-    }
-    return { isDone: false, isInProgress: true };
-  }
-
-  getUpdatedTodo({ task, isDone, isInProgress }) {
-    return Object.assign({ task }, this.getNewStatus(isDone, isInProgress));
-  }
-
   updateStatus(todoId) {
-    this.setState(({ todoList }) => {
-      let newTodoList = todoList.map((todo) => ({ ...todo }));
-      const todo = newTodoList[todoId];
-      newTodoList[todoId] = this.getUpdatedTodo(todo);
-      return { todoList: newTodoList };
+    this.setState((state) => {
+      const todoList = [...state.todoList];
+      const { task, status } = todoList[todoId];
+      todoList[todoId] = { task, status: getNextStatus(status) };
+      return { todoList };
     });
   }
 
   handleSubmit(task) {
     this.setState((state) => ({
-      todoList: state.todoList.concat([
-        { task, isDone: false, isInProgress: false },
-      ]),
+      todoList: state.todoList.concat({ task, status: getDefaultStatus() }),
     }));
   }
 
   render() {
     const TodoItems = this.state.todoList.map((todo, id) => (
-      <TodoItem key={id} id={id} todo={todo} updateStatus={this.updateStatus} />
+      <TodoItem key={id} id={id} todo={todo} onClick={this.updateStatus} />
     ));
 
     return (
