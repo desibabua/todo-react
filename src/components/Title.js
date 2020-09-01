@@ -19,20 +19,18 @@ class Title extends React.Component {
   }
 
   render() {
-    if (this.state.isEditable) {
-      return (
-        <EditTitle
-          className="title"
-          value={this.props.title}
-          onSubmit={this.saveTitle}
-        />
-      );
-    }
-    return (
+    const {title} = this.props;
+    const InputTitle = (
+      <EditTitle className="title" value={title} onSubmit={this.saveTitle} />
+    );
+
+    const TitleBar = (
       <div className="title" onClick={this.toggleEditable}>
-        {this.props.title}
+        {title}
       </div>
     );
+    
+    return this.state.isEditable ? InputTitle : TitleBar;
   }
 }
 
