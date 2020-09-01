@@ -1,3 +1,8 @@
+.title {
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
 .task {
   display: flex;
   margin: 10px;

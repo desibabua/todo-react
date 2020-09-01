@@ -1,9 +1,9 @@
 import React from 'react';
 
-class AddTask extends React.Component {
+class InputBox extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: '' };
+    this.state = { value: this.props.value };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -30,10 +30,11 @@ class AddTask extends React.Component {
           type='text'
           onChange={this.handleChange}
           value={this.state.value}
+          className={this.props.className}
         />
       </form>
     );
   }
 }
 
-export default AddTask;
+export default InputBox;

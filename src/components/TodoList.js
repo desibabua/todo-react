@@ -1,6 +1,7 @@
 import React from 'react';
+import Title from './Title';
 import Tasks from './Tasks';
-import AddTask from './AddTask';
+import AddTask from './InputBox';
 import { getDefaultStatus, getNextStatus } from './Statuses';
 
 class TodoList extends React.Component {
@@ -8,9 +9,11 @@ class TodoList extends React.Component {
     super(props);
     this.state = {
       todoList: [],
+      title: 'todo',
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.addTask = this.addTask.bind(this);
     this.updateStatus = this.updateStatus.bind(this);
+    this.updateTitle = this.updateTitle.bind(this);
   }
 
   updateStatus(todoId) {
@@ -22,7 +25,11 @@ class TodoList extends React.Component {
     });
   }
 
-  handleSubmit(task) {
+  updateTitle(title) {
+    this.setState(() => ({title}));
+  }
+
+  addTask(task) {
     this.setState((state) => ({
       todoList: state.todoList.concat({ task, status: getDefaultStatus() }),
     }));
@@ -31,9 +38,9 @@ class TodoList extends React.Component {
   render() {
     return (
       <div>
-        <h1>Todo</h1>
+        <Title title={this.state.title} onSubmit={this.updateTitle} />
         <Tasks todoList={this.state.todoList} onClick={this.updateStatus} />
-        <AddTask onSubmit={this.handleSubmit} />
+        <AddTask onSubmit={this.addTask} />
       </div>
     );
   }
