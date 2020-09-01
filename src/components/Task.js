@@ -1,7 +1,6 @@
 import React from 'react';
 
-const TodoItem = function ({ todo, id, onClick }) {
-  const { task, status } = todo;
+const Todo = function ({ task, status, id, onClick }) {
   return (
     <div id={id} className={'task ' + status} onClick={() => onClick(id)}>
       <div className="status"></div>
@@ -10,4 +9,4 @@ const TodoItem = function ({ todo, id, onClick }) {
   );
 };
 
-export default TodoItem;
+export default Todo;

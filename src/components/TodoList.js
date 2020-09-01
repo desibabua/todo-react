@@ -1,7 +1,7 @@
 import React from 'react';
-import TodoItem from './TodoItem';
-import AddItem from './AddItem';
-import { getDefaultStatus, getNextStatus } from './statuses';
+import Tasks from './Tasks';
+import AddTask from './AddTask';
+import { getDefaultStatus, getNextStatus } from './Statuses';
 
 class TodoList extends React.Component {
   constructor(props) {
@@ -29,15 +29,11 @@ class TodoList extends React.Component {
   }
 
   render() {
-    const TodoItems = this.state.todoList.map((todo, id) => (
-      <TodoItem key={id} id={id} todo={todo} onClick={this.updateStatus} />
-    ));
-
     return (
       <div>
         <h1>Todo</h1>
-        {TodoItems}
-        <AddItem onSubmit={this.handleSubmit} />
+        <Tasks todoList={this.state.todoList} onClick={this.updateStatus} />
+        <AddTask onSubmit={this.handleSubmit} />
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-class AddItem extends React.Component {
+class AddTask extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: '' };
@@ -36,4 +36,4 @@ class AddItem extends React.Component {
   }
 }
 
-export default AddItem;
+export default AddTask;
