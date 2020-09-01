@@ -7,10 +7,7 @@ import { getDefaultStatus, getNextStatus } from './Statuses';
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      todoList: [],
-      title: 'todo',
-    };
+    this.state = { toDos: [], title: 'Todo' };
     this.addTask = this.addTask.bind(this);
     this.updateStatus = this.updateStatus.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
@@ -18,20 +15,20 @@ class TodoList extends React.Component {
 
   updateStatus(todoId) {
     this.setState((state) => {
-      const todoList = [...state.todoList];
-      const { task, status } = todoList[todoId];
-      todoList[todoId] = { task, status: getNextStatus(status) };
-      return { todoList };
+      const toDos = [...state.toDos];
+      const { task, status } = toDos[todoId];
+      toDos[todoId] = { task, status: getNextStatus(status) };
+      return { toDos };
     });
   }
 
   updateTitle(title) {
-    this.setState(() => ({title}));
+    this.setState(() => ({ title }));
   }
 
   addTask(task) {
     this.setState((state) => ({
-      todoList: state.todoList.concat({ task, status: getDefaultStatus() }),
+      toDos: state.toDos.concat({ task, status: getDefaultStatus() }),
     }));
   }
 
@@ -39,7 +36,7 @@ class TodoList extends React.Component {
     return (
       <div>
         <Title title={this.state.title} onSubmit={this.updateTitle} />
-        <Tasks todoList={this.state.todoList} onClick={this.updateStatus} />
+        <Tasks toDos={this.state.toDos} onClick={this.updateStatus} />
         <AddTask onSubmit={this.addTask} />
       </div>
     );
