@@ -1,19 +1,43 @@
+body {
+  padding:10%;
+}
+
+input {
+  margin: 20px;
+}
+
 .title {
   font-size: 2.5rem;
   font-weight: 500;
+  margin:0px;
 }
 
 .task {
   display: flex;
-  margin: 10px;
-  cursor: pointer;
+  margin: 20px;
 }
 
 .status {
   width: 10px;
   margin: 0 10px;
 }
-.done {
+
+.content {
+  min-width: 200px;
+  cursor: pointer;
+}
+
+.deleteBtn {
+  visibility: hidden;
+  color:grey;
+  cursor: pointer;
+}
+
+.task:hover .deleteBtn{
+  visibility: visible;
+}
+
+.done .content {
   text-decoration: line-through;
 }
 

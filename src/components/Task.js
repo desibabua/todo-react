@@ -1,10 +1,15 @@
 import React from 'react';
 
-const Todo = function ({ task, status, id, onClick }) {
+const Todo = function ({ task, status, id, onClick, onDelete }) {
   return (
-    <div id={id} className={'task ' + status} onClick={() => onClick(id)}>
+    <div id={id} className={'task ' + status}>
       <div className="status"></div>
-      <div>{task}</div>
+      <div className="content" onClick={() => onClick(id)}>
+        {task}
+      </div>
+      <div className="deleteBtn" onClick={() => onDelete(id)}>
+        X
+      </div>
     </div>
   );
 };
