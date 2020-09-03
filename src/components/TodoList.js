@@ -4,10 +4,12 @@ import Tasks from './Tasks';
 import AddTask from './InputBox';
 import { getDefaultStatus, getNextStatus } from './Statuses';
 
+const DEFAULT_HEADING = 'Todo'
+
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { title: 'Todo', toDos: [], lastTaskId: 0 };
+    this.state = { title: DEFAULT_HEADING, toDos: [], lastTaskId: 0 };
     this.resetTodo = this.resetTodo.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
     this.addTask = this.addTask.bind(this);
@@ -16,7 +18,7 @@ class TodoList extends React.Component {
   }
 
   resetTodo() {
-    this.setState(() => ({ title: 'Todo', toDos: [], lastTaskId: 0 }));
+    this.setState(() => ({ title: DEFAULT_HEADING, toDos: [], lastTaskId: 0 }));
   }
 
   updateTitle(title) {
