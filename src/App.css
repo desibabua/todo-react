@@ -6,10 +6,17 @@ input {
   margin: 20px;
 }
 
+.titleBar {
+  display: flex;
+  font-size: 1.5rem;
+  align-items: center;
+}
+
 .title {
   font-size: 2.5rem;
   font-weight: 500;
   margin:0px;
+  min-width: 200px;
 }
 
 .task {
@@ -33,7 +40,8 @@ input {
   cursor: pointer;
 }
 
-.task:hover .deleteBtn{
+.task:hover .deleteBtn,
+.titleBar:hover .deleteBtn{
   visibility: visible;
 }
 

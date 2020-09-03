@@ -1,5 +1,6 @@
 import React from 'react';
 import EditTitle from './InputBox';
+import DeleteBtn from './DeleteBtn';
 
 class Title extends React.Component {
   constructor(props) {
@@ -25,8 +26,11 @@ class Title extends React.Component {
     );
 
     const TitleBar = (
-      <div className="title" onClick={this.toggleEditable}>
-        {title}
+      <div className="titleBar">
+        <div className="title" onClick={this.toggleEditable}>
+          {title}
+        </div>
+        <DeleteBtn onDelete={this.props.onDelete}/>
       </div>
     );
     
