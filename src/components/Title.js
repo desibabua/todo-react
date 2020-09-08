@@ -1,41 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EditTitle from './InputBox';
 import DeleteBtn from './DeleteBtn';
 
-class Title extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { isEditable: false };
-    this.toggleEditable = this.toggleEditable.bind(this);
-    this.saveTitle = this.saveTitle.bind(this);
-  }
+const Title = function (props) {
+  let [isEditable, toggleIsEditable] = useState(false);
 
-  toggleEditable() {
-    this.setState((state) => ({ isEditable: !state.isEditable }));
-  }
+  const saveTitle = function (title) {
+    props.onSubmit(title);
+    toggleIsEditable((state) => !state);
+  };
 
-  saveTitle(title) {
-    this.props.onSubmit(title);
-    this.toggleEditable();
-  }
-
-  render() {
-    const {title} = this.props;
-    const InputTitle = (
-      <EditTitle className="title" value={title} onSubmit={this.saveTitle} />
+  if (isEditable) {
+    return (
+      <EditTitle className="title" value={props.title} onSubmit={saveTitle} />
     );
+  }
 
-    const TitleBar = (
-      <div className="titleBar">
-        <div className="title" onClick={this.toggleEditable}>
-          {title}
-        </div>
-        <DeleteBtn onDelete={this.props.onDelete}/>
+  return (
+    <div className="titleBar">
+      <div
+        className="title"
+        onClick={() => toggleIsEditable((state) => !state)}
+      >
+        {props.title}
       </div>
-    );
-    
-    return this.state.isEditable ? InputTitle : TitleBar;
-  }
-}
+      <DeleteBtn onDelete={props.onDelete} />
+    </div>
+  );
+};
 
 export default Title;
