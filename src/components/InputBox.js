@@ -1,40 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-class InputBox extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: props.value || '' };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+const InputBox = function (props) {
+  const [value, setValue] = useState(props.value || '');
 
-  handleChange(e) {
-    const value = e.target.value;
-    this.setState(() => ({ value }));
-  }
+  const handleChange = function (e) {
+    setValue(e.target.value);
+  };
 
-  handleSubmit(e) {
+  const handleSubmit = function (e) {
     e.preventDefault();
-    const value = this.state.value;
     if (value) {
-      this.props.onSubmit(value);
-      this.setState({ value: '' });
+      props.onSubmit(value);
+      setValue('');
     }
-  }
+  };
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          autoFocus
-          type="text"
-          onChange={this.handleChange}
-          value={this.state.value}
-          className={this.props.className}
-        />
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        autoFocus
+        type="text"
+        onChange={handleChange}
+        value={value}
+        className={props.className}
+      />
+    </form>
+  );
+};
 
 export default InputBox;
