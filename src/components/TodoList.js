@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import withDelete from './withDelete';
 import Title from './Title';
 import Tasks from './Tasks';
 import AddTask from './InputBox';
@@ -27,6 +28,7 @@ const TodoList = function () {
   };
 
   const deleteTask = function (taskId) {
+    console.log(taskId)
     setToDos(toDos.filter((task) => task.id !== taskId));
   };
 
@@ -36,9 +38,11 @@ const TodoList = function () {
     setToDos([...toDos]);
   };
 
+  const TitleWithDelete = withDelete(Title, () => resetTodo(), 'titleBar');
+
   return (
     <div>
-      <Title title={title} onSubmit={updateTitle} onDelete={resetTodo} />
+      <TitleWithDelete title={title} onSubmit={updateTitle} />
       <Tasks toDos={toDos} onClick={updateStatus} onDelete={deleteTask} />
       <AddTask onSubmit={addTask} />
     </div>

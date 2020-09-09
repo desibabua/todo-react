@@ -19,9 +19,14 @@ input {
   min-width: 200px;
 }
 
-.task {
+.task{
   display: flex;
   margin: 20px;
+}
+
+.taskBar{
+  display: flex;
+  align-items: center;
 }
 
 .status {
@@ -40,7 +45,7 @@ input {
   cursor: pointer;
 }
 
-.task:hover .deleteBtn,
+.taskBar:hover .deleteBtn,
 .titleBar:hover .deleteBtn{
   visibility: visible;
 }

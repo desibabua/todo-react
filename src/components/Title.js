@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import EditTitle from './InputBox';
-import DeleteBtn from './DeleteBtn';
 
 const Title = function (props) {
   let [isEditable, toggleIsEditable] = useState(false);
@@ -17,14 +16,8 @@ const Title = function (props) {
   }
 
   return (
-    <div className="titleBar">
-      <div
-        className="title"
-        onClick={() => toggleIsEditable((state) => !state)}
-      >
-        {props.title}
-      </div>
-      <DeleteBtn onDelete={props.onDelete} />
+    <div className="title" onClick={() => toggleIsEditable((state) => !state)}>
+      {props.title}
     </div>
   );
 };

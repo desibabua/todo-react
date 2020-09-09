@@ -1,5 +1,4 @@
 import React from 'react';
-import DeleteBtn from './DeleteBtn';
 
 const Todo = function ({ task, status, id, onClick, onDelete }) {
   return (
@@ -8,7 +7,6 @@ const Todo = function ({ task, status, id, onClick, onDelete }) {
       <div className="content" onClick={() => onClick(id)}>
         {task}
       </div>
-      <DeleteBtn onDelete={() => onDelete(id)}/>
     </div>
   );
 };
