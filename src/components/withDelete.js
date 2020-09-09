@@ -2,7 +2,7 @@ import React from 'react';
 
 const DeleteBtn = function (props) {
   return (
-    <div className="deleteBtn" onClick={props.onDelete}>
+    <div className="deleteBtn" {...props}>
       X
     </div>
   );
@@ -11,8 +11,8 @@ const DeleteBtn = function (props) {
 const withDelete = function (Component, action, className) {
   return (props) => (
     <div className={className}>
-      <Component {...props}/>
-      <DeleteBtn onDelete={action} />
+      <Component {...props} />
+      <DeleteBtn onClick={action} />
     </div>
   );
 };

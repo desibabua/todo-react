@@ -1,49 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import withDelete from './withDelete';
 import Title from './Title';
 import Tasks from './Tasks';
 import AddTask from './InputBox';
-import { getDefaultStatus, getNextStatus } from './Statuses';
-
-const DEFAULT_HEADING = 'Todo';
+import requestAPI from './reqApi';
 
 const TodoList = function () {
-  const [title, setTitle] = useState(DEFAULT_HEADING);
-  const [toDos, setToDos] = useState([]);
-  const [lastTaskId, setLastTaskId] = useState(0);
+  const [toDoList, setToDoList] = useState(null);
+
+  const updateTodo = () =>
+    requestAPI.getAllToDos().then((value) => {
+      console.log(value);
+      setToDoList(value);
+    });
+
+  useEffect(() => {
+    requestAPI.getAllToDos().then(setToDoList);
+  }, []);
 
   const resetTodo = function () {
-    setTitle(DEFAULT_HEADING);
-    setToDos([]);
-    setLastTaskId(0);
+    requestAPI.resetToDos().then(setToDoList);
   };
 
   const updateTitle = function (title) {
-    setTitle(title);
+    requestAPI.updateTitle(title).then(updateTodo);
   };
 
   const addTask = function (task) {
-    setToDos([...toDos, { id: lastTaskId, task, status: getDefaultStatus() }]);
-    setLastTaskId(lastTaskId + 1);
+    requestAPI.addTask(task).then(updateTodo);
   };
 
   const deleteTask = function (taskId) {
-    console.log(taskId)
-    setToDos(toDos.filter((task) => task.id !== taskId));
+    requestAPI.deleteTask(taskId).then(updateTodo);
   };
 
   const updateStatus = function (taskId) {
-    const task = toDos.find((task) => task.id === taskId);
-    task.status = getNextStatus(task.status);
-    setToDos([...toDos]);
+    requestAPI.updateStatus(taskId).then(updateTodo);
   };
 
   const TitleWithDelete = withDelete(Title, () => resetTodo(), 'titleBar');
 
+  if (!toDoList) return <div>loading...</div>;
+
   return (
     <div>
-      <TitleWithDelete title={title} onSubmit={updateTitle} />
-      <Tasks toDos={toDos} onClick={updateStatus} onDelete={deleteTask} />
+      <TitleWithDelete title={toDoList.title} onSubmit={updateTitle} />
+      <Tasks
+        toDos={toDoList.toDos}
+        onClick={updateStatus}
+        onDelete={deleteTask}
+      />
       <AddTask onSubmit={addTask} />
     </div>
   );
