@@ -8,14 +8,10 @@ import requestAPI from './reqApi';
 const TodoList = function () {
   const [toDoList, setToDoList] = useState(null);
 
-  const updateTodo = () =>
-    requestAPI.getAllToDos().then((value) => {
-      console.log(value);
-      setToDoList(value);
-    });
+  const updateTodo = () => requestAPI.getAllToDos().then(setToDoList);
 
   useEffect(() => {
-    requestAPI.getAllToDos().then(setToDoList);
+    updateTodo();
   }, []);
 
   const resetTodo = function () {
