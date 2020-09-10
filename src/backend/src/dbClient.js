@@ -3,15 +3,6 @@ class DbClient {
     this.client = client;
   }
 
-  getId() {
-    return new Promise((res, rej) => {
-      this.client.incr('lastId', (err, id) => {
-        if (err) rej(err);
-        res(id);
-      });
-    });
-  }
-
   getTodoDetails() {
     return new Promise((res, rej) => {
       this.client.get('todoDetails', (err, result) => {

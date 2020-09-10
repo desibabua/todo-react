@@ -11,15 +11,15 @@ const attachTodo = (req, res, next) => {
     .then(next);
 };
 
-const resetTodo = (req, res) => {
-  const { db } = req.app.locals;
-  db.setTodoDetails(initializeToDos());
-  res.json(initializeToDos());
-};
-
 const getAllToDos = (req, res) => {
   const { todoList } = req.app.locals;
   res.json(todoList);
+};
+
+const resetTodo = (req, res) => {
+  const { db } = req.app.locals;
+  db.setTodoDetails(initializeToDos());
+  res.end();
 };
 
 const updateTitle = (req, res) => {

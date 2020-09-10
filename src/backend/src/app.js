@@ -20,8 +20,9 @@ app.use((req, res, next) => {
 });
 
 app.use(handlers.attachTodo);
-app.get('/api/resetTodo', handlers.resetTodo);
 app.get('/api/getAllToDos', handlers.getAllToDos);
+
+app.post('/api/resetTodo', handlers.resetTodo);
 app.post('/api/updateTitle', handlers.updateTitle);
 app.post('/api/addTask', handlers.addTask);
 app.post('/api/deleteTask', handlers.deleteTask);

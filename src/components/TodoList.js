@@ -15,7 +15,7 @@ const TodoList = function () {
   }, []);
 
   const resetTodo = function () {
-    requestAPI.resetToDos().then(setToDoList);
+    requestAPI.resetToDos().then(updateTodo);
   };
 
   const updateTitle = function (title) {

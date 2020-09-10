@@ -2,14 +2,14 @@ const fetchPost = (url, data) => {
   return fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
+    body: JSON.stringify(data||{}),
   });
 };
 
 let requestAPI = {};
 
 requestAPI.getAllToDos = () => fetch('/api/getAllToDos').then((x) => x.json());
-requestAPI.resetToDos = () => fetch('/api/resetTodo').then((x) => x.json());
+requestAPI.resetToDos = () => fetchPost('/api/resetTodo');
 
 requestAPI.updateTitle = (title) => fetchPost('/api/updateTitle', { title });
 requestAPI.addTask = (task) => fetchPost('/api/addTask', { task });
