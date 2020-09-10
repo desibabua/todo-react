@@ -3,6 +3,7 @@ const { getDefaultStatus, getNextStatus } = require('./Statuses');
 
 const app = express();
 app.use(express.json());
+app.use(express.static('public'))
 
 const DEFAULT_HEADING = 'Todo';
 const initializeToDos = () => {
@@ -22,7 +23,7 @@ app.use((req, res, next) => {
 
 app.get('/api/resetTodo', (req, res) => {
   app.locals.todoList = initializeToDos();
-  res.json(todoList);
+  res.json(app.locals.todoList);
 });
 
 app.get('/api/getAllToDos', (req, res) => {
